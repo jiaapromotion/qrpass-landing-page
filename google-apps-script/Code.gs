@@ -1,6 +1,6 @@
 function doPost(e) {
   Logger.log("POST RECEIVED:");
-  Logger.log(JSON.stringify(e)); // This will print the full object for debugging
+  Logger.log(JSON.stringify(e));
 
   const sheet = SpreadsheetApp.openById("1d6wcUksao5JzWSvblCeqjCEwXQdep3AEKtbLFTNWbuQ");
   const tab = sheet.getSheets()[0];
@@ -11,21 +11,10 @@ function doPost(e) {
     return ContentService.createTextOutput("OK");
   } catch (error) {
     Logger.log("Error: " + error);
-    return ContentService.createTextOutput("Error: " + error);
+    return ContentService.createTextOutput("ERROR");
   }
 }
 
-function testSubmit() {
-  const mockEvent = {
-    postData: {
-      contents: JSON.stringify({
-        name: "Kailash Sharma",
-        email: "dadhich2006@gmail.com",
-        phone: "09158058999",
-        message: "Testing CRM Submission"
-      })
-    }
-  };
-
-  doPost(mockEvent);
+function doGet() {
+  return ContentService.createTextOutput("QRPass CRM Logger is active.");
 }
