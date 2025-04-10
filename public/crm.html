@@ -57,7 +57,7 @@
         jsonData[key] = value;
       });
 
-      fetch("/submit-lead", {
+      fetch("https://qrpass-crm-proxy.onrender.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
