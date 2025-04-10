@@ -1,78 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QRPass – Lead Capture</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: 50px auto;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: #28a745;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QRPass CRM</title>
 </head>
 <body>
-  <h2>QRPass – Lead Capture</h2>
-  <form id="leadForm">
-    <input name="name" type="text" placeholder="Full Name" required />
-    <input name="email" type="email" placeholder="Email Address" required />
-    <input name="phone" type="text" placeholder="Phone Number" required />
-    <textarea name="message" placeholder="Message (optional)"></textarea>
+  <h1>QRPass CRM Lead Form</h1>
+  <form id="crmForm">
+    <input type="text" id="name" placeholder="Name" required /><br/>
+    <input type="email" id="email" placeholder="Email" required /><br/>
+    <input type="tel" id="phone" placeholder="Phone" required /><br/>
+    <textarea id="message" placeholder="Message"></textarea><br/>
     <button type="submit">Submit</button>
-    <p id="statusMessage"></p>
   </form>
 
   <script>
-    const form = document.getElementById("leadForm");
-    const statusMessage = document.getElementById("statusMessage");
-
-    form.addEventListener("submit", function (e) {
+    document.getElementById("crmForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const message = document.getElementById("message").value;
 
-      const formData = new FormData(form);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
-
-      fetch("https://qrpass-crm-proxy.onrender.com/submit", {
+      fetch("https://script.google.com/macros/s/AKfycbz0B1mfxi5V9Sz40Oto98WdqoQT7BAk6wqnMmimf18M9VTMGKp1EbElTQ9sxKqKgYZf2g/exec", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(jsonData),
+        body: JSON.stringify({ name, email, phone, message })
       })
-        .then(() => {
-          statusMessage.style.color = "green";
-          statusMessage.textContent = "Lead submitted successfully!";
-          form.reset();
-        })
-        .catch(() => {
-          statusMessage.style.color = "red";
-          statusMessage.textContent = "Submission failed. Please try again.";
-        });
+      .then(res => res.text())
+      .then(response => {
+        alert("Thank you! Your lead has been submitted.");
+        document.getElementById("crmForm").reset();
+      })
+      .catch(err => {
+        alert("Something went wrong. Please try again.");
+        console.error(err);
+      });
     });
   </script>
 </body>
