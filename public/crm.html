@@ -1,47 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QRPass CRM Form ✅</title>
+  <title>QRPass CRM Lead Form</title>
 </head>
-<body style="font-family:sans-serif;padding:20px;background:#eee;">
+<body>
   <h2>QRPass CRM Lead Form</h2>
-  <form id="crmForm">
-    <input type="text" id="name" placeholder="Name" required><br><br>
-    <input type="email" id="email" placeholder="Email" required><br><br>
-    <input type="tel" id="phone" placeholder="Phone" required><br><br>
-    <textarea id="message" placeholder="Message (optional)"></textarea><br><br>
+
+  <form action="https://formsubmit.co/qrpass2025@gmail.com" method="POST">
+    <input type="text" name="name" required placeholder="Your Name"><br><br>
+    <input type="email" name="email" required placeholder="Your Email"><br><br>
+    <input type="text" name="phone" required placeholder="Phone Number"><br><br>
+    <textarea name="message" required placeholder="Your Message"></textarea><br><br>
     <button type="submit">Submit</button>
   </form>
-
-  <p id="status"></p>
-
-  <script>
-    document.getElementById("crmForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      document.getElementById("status").textContent = "Submitting...";
-
-      fetch("https://script.google.com/macros/s/AKfycbz0B1mfxi5V9Sz40Oto98WdqoQT7BAk6wqnMmimf18M9VTMGKp1EbElTQ9sxKqKgYZf2g/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: document.getElementById("name").value,
-          email: document.getElementById("email").value,
-          phone: document.getElementById("phone").value,
-          message: document.getElementById("message").value,
-        }),
-      })
-      .then((res) => res.text())
-      .then((data) => {
-        document.getElementById("status").textContent = "✅ Submitted successfully!";
-        document.getElementById("crmForm").reset();
-      })
-      .catch((err) => {
-        document.getElementById("status").textContent = "❌ Submission failed. Please try again.";
-        console.error("Error:", err);
-      });
-    });
-  </script>
 </body>
 </html>
